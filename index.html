@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TẤN THÀNH SPIN COIN MASTER</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="background"></div>
+  <header>
+    <h1>TẤN THÀNH</h1>
+    <h2>SPIN COIN MASTER</h2>
+  </header>
+
+  <main>
+    <div class="spinner-container">
+      <img src="assets/spin-wheel.gif" alt="Vòng quay" class="spinner" />
+      <img src="assets/dog-running.gif" alt="Cún chạy" class="dog" />
+    </div>
+
+    <section id="spin-links">
+      <h3>Link Spin Mới Nhất</h3>
+      <ul id="link-list"><li>🔄 Đang cập nhật...</li></ul>
+      <p id="error" class="error"></p>
+    </section>
+
+    <div class="buttons">
+      <button onclick="copyLink()">📋 Sao chép</button>
+      <button onclick="share()">📣 Chia sẻ</button>
+      <button onclick="downloadApp()">⬇️ Tải App</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© Bản quyền thuộc về <strong>Tấn Thành</strong></p>
+  </footer>
+
+  <audio id="clickSound" src="assets/click.mp3"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
