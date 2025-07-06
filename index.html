@@ -3,155 +3,215 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TẤN THÀNH - SPIN COIN MASTER</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <title>TẤN THÀNH SPIN COIN MASTER</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ffd700, #ff6f00);
-      color: #fff;
+      background: linear-gradient(135deg, #f7c01b, #f4791f);
       overflow-x: hidden;
     }
-    .container {
+
+    .header {
       text-align: center;
-      padding: 60px 20px 80px;
+      padding: 20px;
+      background-color: rgba(0,0,0,0.4);
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    .spin-section {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #fff5d7;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       position: relative;
     }
-    h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 5px #000;
-    }
-    .subtitle {
-      font-size: 1.4em;
-      margin-bottom: 30px;
-      color: #fffbe7;
-    }
-    .spin-list {
-      max-width: 600px;
-      margin: auto;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      padding: 20px;
-    }
+
     .spin-item {
-      background: #fff;
-      color: #000;
-      padding: 10px 15px;
-      border-radius: 10px;
+      background-color: #fff;
+      padding: 15px;
       margin: 10px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 8px #ddd;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      animation: fadeIn 1s ease;
-    }
-    .spin-item button {
-      background: #28a745;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .footer {
-      position: fixed;
-      bottom: 10px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-size: 0.9em;
-      color: #fffbe7;
     }
 
-    /* Animations */
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
+    .spin-item a {
+      color: #f4791f;
+      text-decoration: none;
+      font-weight: bold;
     }
-    .coin {
-      position: absolute;
-      width: 30px;
-      animation: fall linear infinite;
+
+    .btn-copy {
+      background: #f7c01b;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
     }
-    @keyframes fall {
-      0% { top: -50px; opacity: 0; }
-      100% { top: 100vh; opacity: 1; }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: white;
+      font-size: 14px;
     }
-    .dog-run {
+
+    .dog {
       position: fixed;
       bottom: 0;
-      left: -200px;
-      width: 150px;
-      animation: runDog 10s linear infinite;
+      left: -100px;
+      animation: run 20s linear infinite;
+      z-index: 5;
     }
-    @keyframes runDog {
-      0% { left: -200px; }
+
+    @keyframes run {
+      0% { left: -100px; }
       100% { left: 110%; }
     }
-    .wheel {
-      width: 160px;
-      margin: 20px auto;
-      animation: rotate 4s linear infinite;
+
+    .coin {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      background: url('https://cdn-icons-png.flaticon.com/512/825/825508.png') no-repeat center/contain;
+      animation: fall 4s linear infinite;
+      opacity: 0.8;
+      z-index: 2;
     }
-    @keyframes rotate {
-      from { transform: rotate(0deg);}
-      to { transform: rotate(360deg);}
+
+    @keyframes fall {
+      0% {
+        top: -50px;
+        left: calc(100% * var(--i));
+        transform: rotate(0deg);
+      }
+      100% {
+        top: 110vh;
+        left: calc(100% * var(--i));
+        transform: rotate(360deg);
+      }
+    }
+
+    .btns {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .btns button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      background-color: #ff9500;
+      color: white;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <img class="wheel" src="https://cdn-icons-png.flaticon.com/512/3468/3468032.png" alt="Vòng quay" />
-    <h1>TẤN THÀNH</h1>
-    <div class="subtitle">SPIN COIN MASTER - Cập nhật spin mỗi ngày</div>
+  <div class="header">
+    🎯 TẤN THÀNH <br> SPIN COIN MASTER
+  </div>
 
-    <div id="spin-list" class="spin-list">
-      <p>Đang cập nhật link spin mới nhất...</p>
+  <div class="spin-section" id="spin-list">
+    <div style="text-align:center; color: #999;">
+      Đang tải link Spin mới nhất...
     </div>
   </div>
 
-  <img class="dog-run" src="https://media.tenor.com/a3w5xMjOpC8AAAAi/coin-master-pig.gif" alt="Cún chạy"/>
+  <div class="btns">
+    <button onclick="sharePage()"><i class="fas fa-share-alt"></i> Chia sẻ</button>
+    <button onclick="downloadApp()"><i class="fas fa-download"></i> Tải App</button>
+  </div>
 
-  <div class="footer">© Bản quyền thuộc về TanThanh</div>
+  <div class="footer">
+    © Bản quyền thuộc về TẤN THÀNH - Không reup mã khi chưa cho phép.
+  </div>
 
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzJ0dTlydTN1c2h1MG5nZmI4aWs1N3dzM2k5MWtxZXBsbjk2eHZ5ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/qWbzO3jwWCE4gYE0ya/giphy.gif" class="dog" width="120" />
+
+  <!-- Coins rơi -->
   <script>
-    // Hiệu ứng xu rơi
-    for (let i = 0; i < 30; i++) {
-      let coin = document.createElement('img');
-      coin.src = "https://cdn-icons-png.flaticon.com/512/254/254433.png";
-      coin.className = "coin";
-      coin.style.left = Math.random() * 100 + "vw";
-      coin.style.animationDuration = (3 + Math.random() * 2) + "s";
+    for (let i = 0; i < 20; i++) {
+      const coin = document.createElement('div');
+      coin.className = 'coin';
+      coin.style.left = Math.random() * 100 + 'vw';
+      coin.style.top = Math.random() * -100 + 'px';
+      coin.style.setProperty('--i', Math.random());
       document.body.appendChild(coin);
     }
+  </script>
 
-    // Bot lấy link spin (mock-up hiển thị)
-    const spinList = document.getElementById('spin-list');
+  <!-- Load danh sách link từ server -->
+  <script>
     async function fetchSpinLinks() {
       try {
-        // Ở đây bạn cần thay thế bằng API từ server trung gian lấy từ các nền tảng mạng xã hội chính thức
-        const links = [
-          { url: "https://link.coinmastergame.com/spin1", time: "1 giờ trước" },
-          { url: "https://link.coinmastergame.com/spin2", time: "3 giờ trước" }
-        ];
-        spinList.innerHTML = '';
-        links.forEach(link => {
-          const item = document.createElement('div');
-          item.className = 'spin-item';
-          item.innerHTML = `
-            <span>${link.time}</span>
-            <button onclick="window.open('${link.url}')">Nhận Spin</button>
-          `;
-          spinList.appendChild(item);
-        });
+        const response = await fetch("https://tanthanh-spin-api.vercel.app/api/spins");
+        const data = await response.json();
+        const list = document.getElementById("spin-list");
+        list.innerHTML = "";
+
+        if (data && data.length > 0) {
+          data.forEach(link => {
+            const item = document.createElement("div");
+            item.className = "spin-item";
+            item.innerHTML = `
+              <a href="${link.url}" target="_blank">${link.url}</a>
+              <button class="btn-copy" onclick="copyLink('${link.url}')">Copy</button>
+            `;
+            list.appendChild(item);
+          });
+        } else {
+          list.innerHTML = '<div style="text-align:center;color:red;">❌ Không tìm thấy link spin mới.</div>';
+        }
       } catch (err) {
-        spinList.innerHTML = '<p>❌ Không thể lấy dữ liệu từ các nguồn.</p>';
+        document.getElementById("spin-list").innerHTML = '<div style="text-align:center;color:red;">❌ Không thể lấy dữ liệu từ server.</div>';
       }
     }
 
+    function copyLink(link) {
+      navigator.clipboard.writeText(link);
+      alert("Đã copy: " + link);
+    }
+
+    function sharePage() {
+      if (navigator.share) {
+        navigator.share({
+          title: "Spin Coin Master",
+          text: "Nhận link spin mới mỗi ngày tại đây!",
+          url: window.location.href
+        });
+      } else {
+        alert("Thiết bị không hỗ trợ chia sẻ.");
+      }
+    }
+
+    function downloadApp() {
+      window.open("https://play.google.com/store/apps/details?id=com.moonactive.coinmaster", "_blank");
+    }
+
     fetchSpinLinks();
+    setInterval(fetchSpinLinks, 1000 * 60 * 10); // Cập nhật mỗi 10 phút
   </script>
 </body>
 </html>
