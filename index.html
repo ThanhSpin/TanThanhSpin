@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thành - Spin Coin Master</title>
+</head>
+<body>
+  <h1>🎉 Thành – Spin Coin Master</h1>
+  <ul id="spin-links"></ul>
+
+  <script>
+    fetch('links.json')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('spin-links');
+        data.links.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${item.url}" target="_blank">${item.name}</a>`;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
