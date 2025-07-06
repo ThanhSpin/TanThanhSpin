@@ -3,186 +3,155 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TẤN THÀNH - Link Spin Coin Master</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap">
+  <title>TẤN THÀNH - SPIN COIN MASTER</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
       margin: 0;
-      font-family: 'Baloo 2', cursive;
-      background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffd700, #ff6f00);
+      color: #fff;
       overflow-x: hidden;
     }
-
-    header {
-      background: linear-gradient(to right, #ff9966, #ff5e62);
-      padding: 1rem;
-      text-align: center;
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    }
-
-    .spinner {
-      margin: 20px auto;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 10px solid #f3f3f3;
-      border-top: 10px solid #ff5e62;
-      animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-      0% {transform: rotate(0deg);}
-      100% {transform: rotate(360deg);}
-    }
-
-    .dog {
-      width: 100px;
-      position: absolute;
-      bottom: 10px;
-      animation: run 5s linear infinite;
-    }
-
-    @keyframes run {
-      0% {left: -120px;}
-      100% {left: 100%;}
-    }
-
     .container {
-      max-width: 700px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 60px 20px 80px;
+      position: relative;
     }
-
-    .link-box {
-      margin: 1rem 0;
-      padding: 1rem;
-      background: #e9f5ff;
-      border-left: 5px solid #2196F3;
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 5px #000;
+    }
+    .subtitle {
+      font-size: 1.4em;
+      margin-bottom: 30px;
+      color: #fffbe7;
+    }
+    .spin-list {
+      max-width: 600px;
+      margin: auto;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+    }
+    .spin-item {
+      background: #fff;
+      color: #000;
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin: 10px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      animation: fadeIn 1s ease;
     }
-
-    .btn {
-      padding: 10px 15px;
-      background: #2196F3;
+    .spin-item button {
+      background: #28a745;
       color: white;
       border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
       cursor: pointer;
-      border-radius: 5px;
     }
-
-    .btn:hover {
-      background: #0b7dda;
-    }
-
-    .share-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1.5rem;
-    }
-
-    .countdown {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #444;
-    }
-
-    footer {
-      margin-top: 3rem;
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
       text-align: center;
-      font-size: 0.9rem;
-      color: #aaa;
+      font-size: 0.9em;
+      color: #fffbe7;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .coin {
+      position: absolute;
+      width: 30px;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% { top: -50px; opacity: 0; }
+      100% { top: 100vh; opacity: 1; }
+    }
+    .dog-run {
+      position: fixed;
+      bottom: 0;
+      left: -200px;
+      width: 150px;
+      animation: runDog 10s linear infinite;
+    }
+    @keyframes runDog {
+      0% { left: -200px; }
+      100% { left: 110%; }
+    }
+    .wheel {
+      width: 160px;
+      margin: 20px auto;
+      animation: rotate 4s linear infinite;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg);}
+      to { transform: rotate(360deg);}
     }
   </style>
 </head>
 <body>
-  <header>TẤN THÀNH</header>
-
-  <div class="spinner"></div>
-
-  <img src="https://media.giphy.com/media/l1J9EdzfOSgfyueLm/giphy.gif" alt="Cún chạy" class="dog" />
 
   <div class="container">
-    <h2>🎁 Link Spin Coin Master Mới Nhất</h2>
-    <div id="linkList">Đang cập nhật link mới...</div>
-    <div class="countdown" id="countdown">Thời gian còn lại để nhận spin mới: --:--:--</div>
+    <img class="wheel" src="https://cdn-icons-png.flaticon.com/512/3468/3468032.png" alt="Vòng quay" />
+    <h1>TẤN THÀNH</h1>
+    <div class="subtitle">SPIN COIN MASTER - Cập nhật spin mỗi ngày</div>
 
-    <div class="share-buttons">
-      <button class="btn" onclick="copyLink()">📋 Copy Link</button>
-      <button class="btn" onclick="share()">📤 Chia sẻ</button>
-      <button class="btn" onclick="window.open('https://apps.apple.com/app/id406889139', '_blank')">⬇️ Tải App</button>
+    <div id="spin-list" class="spin-list">
+      <p>Đang cập nhật link spin mới nhất...</p>
     </div>
   </div>
 
-  <footer>© Bản quyền thuộc về Tấn Thành</footer>
+  <img class="dog-run" src="https://media.tenor.com/a3w5xMjOpC8AAAAi/coin-master-pig.gif" alt="Cún chạy"/>
+
+  <div class="footer">© Bản quyền thuộc về TanThanh</div>
 
   <script>
-    const linkList = document.getElementById("linkList");
+    // Hiệu ứng xu rơi
+    for (let i = 0; i < 30; i++) {
+      let coin = document.createElement('img');
+      coin.src = "https://cdn-icons-png.flaticon.com/512/254/254433.png";
+      coin.className = "coin";
+      coin.style.left = Math.random() * 100 + "vw";
+      coin.style.animationDuration = (3 + Math.random() * 2) + "s";
+      document.body.appendChild(coin);
+    }
 
-    async function fetchLinks() {
+    // Bot lấy link spin (mock-up hiển thị)
+    const spinList = document.getElementById('spin-list');
+    async function fetchSpinLinks() {
       try {
-        const urls = [
-          "https://www.facebook.com/coinmasterofficial/posts",
-          "https://x.com/coinmastergame",
-          "https://www.instagram.com/coinmasterofficial/"
+        // Ở đây bạn cần thay thế bằng API từ server trung gian lấy từ các nền tảng mạng xã hội chính thức
+        const links = [
+          { url: "https://link.coinmastergame.com/spin1", time: "1 giờ trước" },
+          { url: "https://link.coinmastergame.com/spin2", time: "3 giờ trước" }
         ];
-
-        let html = "";
-
-        urls.forEach((url, index) => {
-          html += `
-            <div class="link-box">
-              <span>🎯 Link ${index + 1}</span>
-              <button class="btn" onclick="window.open('${url}', '_blank')">Đi tới</button>
-            </div>`;
+        spinList.innerHTML = '';
+        links.forEach(link => {
+          const item = document.createElement('div');
+          item.className = 'spin-item';
+          item.innerHTML = `
+            <span>${link.time}</span>
+            <button onclick="window.open('${link.url}')">Nhận Spin</button>
+          `;
+          spinList.appendChild(item);
         });
-
-        linkList.innerHTML = html;
-      } catch (e) {
-        linkList.innerHTML = "<p style='color: red;'>❌ Không thể lấy dữ liệu từ các nguồn.</p>";
+      } catch (err) {
+        spinList.innerHTML = '<p>❌ Không thể lấy dữ liệu từ các nguồn.</p>';
       }
     }
 
-    function copyLink() {
-      navigator.clipboard.writeText(window.location.href);
-      alert("Đã copy link website!");
-    }
-
-    function share() {
-      if (navigator.share) {
-        navigator.share({
-          title: "Tấn Thành - Link Spin Coin Master",
-          url: window.location.href
-        });
-      } else {
-        copyLink();
-      }
-    }
-
-    function countdownTimer() {
-      const now = new Date().getTime();
-      const midnight = new Date();
-      midnight.setHours(24,0,0,0);
-      const distance = midnight - now;
-
-      const hours = Math.floor((distance / (1000 * 60 * 60)));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").textContent =
-        `Thời gian còn lại để nhận spin mới: ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    setInterval(countdownTimer, 1000);
-    fetchLinks();
+    fetchSpinLinks();
   </script>
 </body>
 </html>
