@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: 'Comic Sans MS', sans-serif;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.background {
+  background: url("assets/bg-animation.gif") center/cover no-repeat;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+header h1 {
+  font-size: 3em;
+  margin: 0.3em 0 0;
+  color: #ffd700;
+}
+header h2 {
+  font-size: 1.5em;
+  font-weight: normal;
+  margin: 0;
+}
+
+.spinner-container {
+  margin: 2em auto;
+  position: relative;
+}
+.spinner {
+  width: 160px;
+  animation: spin 3s linear infinite;
+}
+.dog {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100px;
+  animation: run 6s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+@keyframes run {
+  0% { left: 0; }
+  100% { left: 100%; }
+}
+
+ul#link-list {
+  list-style: none;
+  padding: 0;
+}
+ul#link-list li {
+  margin: 10px 0;
+}
+ul#link-list a {
+  color: #00ffcc;
+  text-decoration: none;
+}
+
+.buttons button {
+  margin: 1em;
+  padding: 0.8em 1.5em;
+  font-size: 1em;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.buttons button:hover {
+  transform: scale(1.1);
+}
+
+footer {
+  margin-top: 3em;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.error {
+  color: #ff4c4c;
+  font-weight: bold;
+}
