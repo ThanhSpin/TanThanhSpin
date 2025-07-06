@@ -3,30 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thanh - Spin Coin Master</title>
+  <title>Thành - Spin Coin Master</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #ffd700, #ff6f61);
+      background: linear-gradient(120deg, #ff9a9e, #fad0c4);
       color: #fff;
       text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     header {
-      padding: 40px 20px 10px;
+      padding: 50px 20px 20px;
+      background: rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(5px);
     }
 
     header h1 {
       margin: 0;
-      font-size: 2.2em;
+      font-size: 2.5em;
+      font-weight: bold;
+      animation: float 3s ease-in-out infinite;
     }
 
     header p {
       margin-top: 10px;
       font-size: 1.1em;
-      color: #fffbd0;
+      color: #fefefe;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
     }
 
     .container {
@@ -36,14 +52,21 @@
     .spin-list {
       list-style: none;
       padding: 0;
+      margin: 0 auto;
+      max-width: 600px;
     }
 
     .spin-list li {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      margin: 10px 0;
-      padding: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      margin: 12px 0;
+      padding: 18px;
       font-size: 1em;
+      transition: transform 0.3s ease;
+    }
+
+    .spin-list li:hover {
+      transform: scale(1.02);
     }
 
     .spin-list a {
@@ -56,12 +79,13 @@
       margin-top: 40px;
       padding: 20px;
       font-size: 0.9em;
-      color: #fffbd0;
+      color: #f1f1f1;
+      background: rgba(0, 0, 0, 0.1);
     }
 
     @media screen and (max-width: 600px) {
       header h1 {
-        font-size: 1.6em;
+        font-size: 1.8em;
       }
 
       .spin-list li {
@@ -72,18 +96,18 @@
 </head>
 <body>
   <header>
-    <h1>🎁 Thanh - Spin Coin Master</h1>
-    <p>Cập nhật link Spin Coin Master mỗi ngày - Tặng spin và xu miễn phí!</p>
+    <h1>🎁 Thành - Spin Coin Master</h1>
+    <p>Nhận Spin và Xu Coin Master miễn phí mỗi ngày!</p>
   </header>
 
   <div class="container">
     <ul class="spin-list" id="spinLinks">
-      <li>Đang tải dữ liệu spin mới nhất...</li>
+      <li>🔄 Đang tải dữ liệu spin mới nhất...</li>
     </ul>
   </div>
 
   <footer>
-    © 2025 ThanhSpin | Cập nhật bởi bot tự động | Không chứa quảng cáo
+    © 2025 TanThanh
   </footer>
 
   <script>
@@ -98,11 +122,11 @@
 
         spinLinks.forEach(spin => {
           const li = document.createElement("li");
-          li.innerHTML = `<a href="${spin.url}" target="_blank">${spin.title} (${spin.created})</a>`;
+          li.innerHTML = `<a href="${spin.url}" target="_blank">👉 ${spin.title} (${spin.created})</a>`;
           container.appendChild(li);
         });
       } catch (error) {
-        document.getElementById("spinLinks").innerHTML = "<li>Lỗi khi tải dữ liệu spin.</li>";
+        document.getElementById("spinLinks").innerHTML = "<li>❌ Lỗi khi tải dữ liệu spin.</li>";
       }
     }
 
