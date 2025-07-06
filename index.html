@@ -1,152 +1,154 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TanThanh - Spin Coin Master</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TẤN THÀNH</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0; padding: 0;
-      box-sizing: border-box;
-      font-family: 'Quicksand', sans-serif;
-    }
+    /* Nền gradient động */
     body {
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      min-height: 100vh;
-      color: #fff;
-      padding: 40px 20px;
+      margin: 0; padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72, #2a5298);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px #000;
-    }
-    p {
-      font-size: 1.1em;
-      margin-bottom: 30px;
-      text-align: center;
-      max-width: 600px;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-      max-width: 600px;
-      width: 100%;
-    }
-    li {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 10px;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-    }
-    li:hover {
-      transform: translateY(-3px);
-    }
-    a {
+      min-height: 100vh;
       color: #fff;
-      text-decoration: none;
-      font-weight: bold;
     }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      margin-top: 60px;
+      font-size: 3em;
+      font-weight: 700;
+      text-shadow: 0 0 10px #fff, 0 0 20px #0ff;
+      animation: shine 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes shine {
+      from { text-shadow: 0 0 5px #fff; }
+      to { text-shadow: 0 0 30px #00ffe0; }
+    }
+
+    .container {
+      background: rgba(0,0,0,0.25);
+      padding: 20px;
+      margin: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      max-width: 500px;
+      width: calc(100% - 40px);
+    }
+
+    .spin-links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .spin-item {
+      background: #fff;
+      color: #000;
+      padding: 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .spin-item:hover {
+      background: #ffea00;
+      transform: translateY(-4px);
+      color: #000;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
     footer {
-      margin-top: 50px;
+      margin-top: auto;
+      padding: 20px;
       font-size: 0.9em;
       opacity: 0.8;
+    }
+
+    @media (max-width:600px) {
+      header { font-size: 2em; }
+      .container { margin: 20px; }
     }
   </style>
 </head>
 <body>
-  <h1>🎉 TanThanh Spin Coin Master</h1>
-  <p>Trang chia sẻ link spin Coin Master miễn phí được cập nhật tự động mỗi ngày từ nhiều nguồn uy tín nhất thế giới.</p>
-  
-  <ul id="spinLinks">
-    <li>🔄 Đang tải link spin...</li>
-  </ul>
 
-  <footer>© 2025 Bản quyền thuộc về TanThanh</footer>
+  <header>TẤN THÀNH</header>
+
+  <div class="container">
+    <div class="spin-links" id="spin-links">
+      <p>🔄 Đang tải link spin tự động...</p>
+    </div>
+  </div>
+
+  <footer>© 2025 TẤN THÀNH</footer>
 
   <script>
-    async function fetchSpinFromSpinmaster() {
-      try {
-        const res = await fetch("https://spinmaster.io/api/spins");
-        const json = await res.json();
-        return json.data.map(spin => ({
-          title: `[SpinMaster] ${spin.title}`,
-          url: spin.url,
-          created: spin.created
-        }));
-      } catch (e) {
-        return [];
+    const sources = [
+      "https://api.allorigins.win/raw?url=https://spinmaster.io/api/spins",
+      "https://data.polyxgo.com/api/v1/datax/coinmaster"  // nguồn PolyXGO  [oai_citation:0‡wikipoly.com](https://wikipoly.com/en/the-coin-master-api-link-to-receive-free-daily-spins/?utm_source=chatgpt.com)
+    ];
+
+    async function fetchSpinLinks() {
+      const links = new Set();
+      const results = [];
+
+      for (let url of sources) {
+        try {
+          const res = await fetch(url);
+          const json = await res.json();
+
+          let items = null;
+          if (url.includes("spinmaster.io")) {
+            items = json.data;
+          } else if (url.includes("polyxgo.com")) {
+            items = json.coinmaster_en_vi;
+          }
+
+          items?.forEach(item => {
+            if (item?.url) {
+              links.add(item.url);
+              // store title
+              results.push({ url: item.url, title: item.title || "Spin Coin Master" });
+            }
+          });
+        } catch (e) {
+          console.log("❌ Không lấy được từ", url);
+        }
       }
-    }
 
-    async function fetchSpinFromRewardLinks() {
-      try {
-        const proxy = "https://api.allorigins.win/raw?url=";
-        const res = await fetch(proxy + encodeURIComponent("https://www.rewardlinks.com/coin-master"));
-        const html = await res.text();
-        const doc = new DOMParser().parseFromString(html, "text/html");
-        const links = [...doc.querySelectorAll(".single-title a")];
+      const container = document.getElementById("spin-links");
+      container.innerHTML = "";
 
-        return links.slice(0, 5).map(a => ({
-          title: `[RewardLinks] ${a.textContent.trim()}`,
-          url: a.href,
-          created: new Date().toISOString().split("T")[0]
-        }));
-      } catch (e) {
-        return [];
-      }
-    }
-
-    async function fetchSpinFromDailySpinLink() {
-      try {
-        const proxy = "https://api.allorigins.win/raw?url=";
-        const res = await fetch(proxy + encodeURIComponent("https://dailyspinlink.com"));
-        const html = await res.text();
-        const doc = new DOMParser().parseFromString(html, "text/html");
-        const links = [...doc.querySelectorAll("a.button-spin")];
-
-        return links.slice(0, 5).map(a => ({
-          title: `[DailySpin] ${a.textContent.trim()}`,
-          url: a.href,
-          created: new Date().toISOString().split("T")[0]
-        }));
-      } catch (e) {
-        return [];
-      }
-    }
-
-    async function loadAllSpinLinks() {
-      const container = document.getElementById("spinLinks");
-      container.innerHTML = "<li>🔄 Đang tải dữ liệu từ nhiều nguồn...</li>";
-
-      const allLinks = [
-        ...(await fetchSpinFromSpinmaster()),
-        ...(await fetchSpinFromRewardLinks()),
-        ...(await fetchSpinFromDailySpinLink())
-      ];
-
-      if (allLinks.length === 0) {
-        container.innerHTML = "<li>❌ Không thể lấy dữ liệu từ các nguồn.</li>";
+      if (links.size === 0) {
+        container.innerHTML = "<p>❌ Không thể lấy dữ liệu từ các nguồn.</p>";
         return;
       }
 
-      // Hiển thị dữ liệu
-      container.innerHTML = "";
-      allLinks.forEach(spin => {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="${spin.url}" target="_blank">👉 ${spin.title} (${spin.created})</a>`;
-        container.appendChild(li);
+      // Hiển thị mỗi link
+      [...links].forEach(link => {
+        const a = document.createElement("a");
+        a.href = link;
+        a.target = "_blank";
+        a.className = "spin-item";
+        a.textContent = "👉 Nhận Spin miễn phí";
+        container.appendChild(a);
       });
     }
 
-    loadAllSpinLinks();
+    fetchSpinLinks();
   </script>
 </body>
 </html>
