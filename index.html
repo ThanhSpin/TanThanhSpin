@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TẤN THÀNH - Link Spin Coin Master</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      color: #fff;
+      overflow-x: hidden;
+      animation: glow 10s infinite alternate;
+    }
+    @keyframes glow {
+      0% { background: linear-gradient(135deg, #fceabb, #f8b500); }
+      100% { background: linear-gradient(135deg, #f8b500, #fceabb); }
+    }
+    header {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      animation: sparkle 2s infinite;
+    }
+    @keyframes sparkle {
+      0% { color: #fff; }
+      50% { color: #ffd700; }
+      100% { color: #fff; }
+    }
+    #content {
+      max-width: 600px;
+      margin: auto;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .spin-link {
+      display: block;
+      margin: 10px 0;
+      background: #ffffff10;
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+      border: 1px solid #fff3;
+    }
+    .spin-link:hover {
+      background: #fff5;
+    }
+    .loading {
+      font-size: 1.2rem;
+      margin-top: 30px;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0.4; }
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #fff9;
+    }
+    .logo {
+      width: 80px;
+      margin-bottom: 10px;
+      animation: spin 5s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://cdn-icons-png.flaticon.com/512/3601/3601022.png" class="logo" alt="Spin Icon"/>
+    <h1>TẤN THÀNH</h1>
+    <p>Chia sẻ link spin Coin Master tự động mỗi ngày!</p>
+  </header>
+
+  <div id="content">
+    <div class="loading">Đang tải dữ liệu link spin miễn phí...</div>
+  </div>
+
+  <footer>
+    © 2025 Bản quyền thuộc về <strong>TẤN THÀNH</strong>. Không sao chép khi chưa được cho phép.
+  </footer>
+
+  <script>
+    const content = document.getElementById('content');
+    const loading = content.querySelector('.loading');
+
+    async function fetchSpinLinks() {
+      try {
+        const sources = [
+          "https://spinmaster.io/daily-links.json",
+          "https://raw.githubusercontent.com/khanhson/coinmaster/main/data.json",
+          "https://cm-rewards.com/api/spins"
+        ];
+
+        let allLinks = [];
+
+        for (const url of sources) {
+          try {
+            const res = await fetch(url);
+            if (!res.ok) continue;
+            const data = await res.json();
+
+            const links = data.links || data.rewards || [];
+            links.forEach(linkObj => {
+              if (linkObj.url && linkObj.url.includes('coinmaster')) {
+                allLinks.push({
+                  url: linkObj.url,
+                  time: linkObj.time || linkObj.date || 'Hôm nay'
+                });
+              }
+            });
+          } catch (err) {
+            console.log("Không thể lấy từ nguồn:", url);
+          }
+        }
+
+        if (allLinks.length === 0) {
+          loading.innerHTML = "❌ Không thể lấy dữ liệu từ các nguồn.";
+          return;
+        }
+
+        loading.remove();
+        allLinks.forEach(link => {
+          const a = document.createElement('a');
+          a.href = link.url;
+          a.target = "_blank";
+          a.className = "spin-link";
+          a.innerText = `🎁 Link Spin (${link.time})`;
+          content.appendChild(a);
+        });
+
+      } catch (err) {
+        loading.innerHTML = "❌ Có lỗi xảy ra khi tải dữ liệu.";
+        console.error(err);
+      }
+    }
+
+    fetchSpinLinks();
+  </script>
+</body>
+</html>
