@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TẤN THÀNH | Spin Coin Master</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #1e1e2f, #121212);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: linear-gradient(90deg, #f39c12, #f1c40f);
+      color: #000;
+      font-size: 2rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px #fff;
+      animation: glow 3s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 10px #fff, 0 0 20px #f39c12; }
+      50% { text-shadow: 0 0 20px #f1c40f, 0 0 30px #f39c12; }
+    }
+
+    .spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px solid #ccc;
+      border-top: 8px solid #f39c12;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 2rem auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #links {
+      max-width: 700px;
+      margin: auto;
+      padding: 2rem 1rem;
+      background-color: rgba(0,0,0,0.6);
+      border-radius: 10px;
+      box-shadow: 0 0 10px #f1c40f;
+    }
+
+    .link-item {
+      background: #2c3e50;
+      border-left: 5px solid #f39c12;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 5px;
+      word-wrap: break-word;
+    }
+
+    button.share-btn {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.5rem;
+      }
+    }
+
+    .glow-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #f1c40f33 0%, transparent 70%);
+      animation: move-glow 10s infinite linear;
+      z-index: -1;
+    }
+
+    @keyframes move-glow {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-bg"></div>
+  <header>TẤN THÀNH</header>
+
+  <div id="links">
+    <div class="spinner" id="loading"></div>
+    <div id="spinLinks"></div>
+    <button class="share-btn" onclick="share()">🔗 Chia sẻ trang này</button>
+  </div>
+
+  <footer>Bản quyền © 2025 Tấn Thành</footer>
+
+  <script>
+    async function fetchSpinLinks() {
+      const spinLinksDiv = document.getElementById('spinLinks');
+      const loading = document.getElementById('loading');
+      spinLinksDiv.innerHTML = '';
+      try {
+        const response = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent("https://www.thegioididong.com/game-app/3-cach-nhan-hang-tram-luot-spin-mien-phi-trong-coin-m-1257965"));
+        const html = JSON.parse(await response.text()).contents;
+        const regex = /(https?:\/\/(?:[\w\d.-]+)?coinmaster\.com\/daily[^"' ]+)/g;
+        const links = [...new Set(html.match(regex))];
+        if (links.length === 0) throw new Error("Không tìm thấy link.");
+        links.forEach(link => {
+          const el = document.createElement('div');
+          el.className = 'link-item';
+          el.innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+          spinLinksDiv.appendChild(el);
+        });
+      } catch (error) {
+        spinLinksDiv.innerHTML = "<div style='color: red;'>❌ Không thể lấy dữ liệu từ các nguồn.</div>";
+      } finally {
+        loading.style.display = "none";
+      }
+    }
+
+    function share() {
+      if (navigator.share) {
+        navigator.share({
+          title: "Spin Coin Master miễn phí mỗi ngày",
+          url: window.location.href
+        });
+      } else {
+        alert("Trình duyệt của bạn không hỗ trợ chia sẻ.");
+      }
+    }
+
+    fetchSpinLinks();
+  </script>
+</body>
+</html>
