@@ -1,25 +1,112 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thành - Spin Coin Master</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thanh - Spin Coin Master</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #ffd700, #ff6f61);
+      color: #fff;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px 20px 10px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2em;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1em;
+      color: #fffbd0;
+    }
+
+    .container {
+      padding: 30px 20px;
+    }
+
+    .spin-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .spin-list li {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      margin: 10px 0;
+      padding: 15px;
+      font-size: 1em;
+    }
+
+    .spin-list a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #fffbd0;
+    }
+
+    @media screen and (max-width: 600px) {
+      header h1 {
+        font-size: 1.6em;
+      }
+
+      .spin-list li {
+        font-size: 0.95em;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>🎉 Thành – Spin Coin Master</h1>
-  <ul id="spin-links"></ul>
+  <header>
+    <h1>🎁 Thanh - Spin Coin Master</h1>
+    <p>Cập nhật link Spin Coin Master mỗi ngày - Tặng spin và xu miễn phí!</p>
+  </header>
+
+  <div class="container">
+    <ul class="spin-list" id="spinLinks">
+      <li>Đang tải dữ liệu spin mới nhất...</li>
+    </ul>
+  </div>
+
+  <footer>
+    © 2025 ThanhSpin | Cập nhật bởi bot tự động | Không chứa quảng cáo
+  </footer>
 
   <script>
-    fetch('links.json')
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById('spin-links');
-        data.links.forEach(item => {
-          const li = document.createElement('li');
-          li.innerHTML = `<a href="${item.url}" target="_blank">${item.name}</a>`;
-          list.appendChild(li);
+    async function fetchSpinLinks() {
+      try {
+        const response = await fetch("https://spinmaster.io/api/spins");
+        const data = await response.json();
+
+        const spinLinks = data.data;
+        const container = document.getElementById("spinLinks");
+        container.innerHTML = "";
+
+        spinLinks.forEach(spin => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="${spin.url}" target="_blank">${spin.title} (${spin.created})</a>`;
+          container.appendChild(li);
         });
-      });
+      } catch (error) {
+        document.getElementById("spinLinks").innerHTML = "<li>Lỗi khi tải dữ liệu spin.</li>";
+      }
+    }
+
+    fetchSpinLinks();
   </script>
 </body>
 </html>
