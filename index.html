@@ -3,127 +3,186 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TẤN THÀNH</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" />
+  <title>TẤN THÀNH - Link Spin Coin Master</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap">
   <style>
     body {
-      font-family: 'Quicksand', sans-serif;
-      background: radial-gradient(circle at top, #ffe600, #ff8a00);
       margin: 0;
-      padding: 0;
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
       overflow-x: hidden;
-      color: #222;
+    }
+
+    header {
+      background: linear-gradient(to right, #ff9966, #ff5e62);
+      padding: 1rem;
       text-align: center;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
-    h1 {
-      margin: 30px 0 10px;
-      font-size: 2.5rem;
-      text-shadow: 2px 2px 0 #fff;
-    }
-    .loader {
+
+    .spinner {
       margin: 20px auto;
       width: 100px;
       height: 100px;
-      background: url('https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif') no-repeat center center;
-      background-size: contain;
+      border-radius: 50%;
+      border: 10px solid #f3f3f3;
+      border-top: 10px solid #ff5e62;
+      animation: spin 2s linear infinite;
     }
-    .spin-list {
-      margin: 30px auto;
-      width: 90%;
-      max-width: 500px;
-      background: #fff8dc;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+    @keyframes spin {
+      0% {transform: rotate(0deg);}
+      100% {transform: rotate(360deg);}
     }
-    .spin-item {
-      margin: 15px 0;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      transition: 0.3s;
-    }
-    .spin-item:hover {
-      background: #ffeaa7;
-    }
-    button {
-      background-color: #ff6f00;
-      border: none;
-      color: white;
-      padding: 12px 24px;
-      font-size: 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      margin: 10px 0;
-      transition: 0.2s;
-    }
-    button:hover {
-      background-color: #ff9100;
-    }
+
     .dog {
-      width: 150px;
-      margin: 30px auto;
-      animation: moveDog 3s linear infinite;
+      width: 100px;
+      position: absolute;
+      bottom: 10px;
+      animation: run 5s linear infinite;
     }
-    @keyframes moveDog {
-      0% { transform: translateX(-100px); }
-      50% { transform: translateX(100px); }
-      100% { transform: translateX(-100px); }
+
+    @keyframes run {
+      0% {left: -120px;}
+      100% {left: 100%;}
     }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    }
+
+    .link-box {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #e9f5ff;
+      border-left: 5px solid #2196F3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background: #0b7dda;
+    }
+
+    .share-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    .countdown {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #444;
+    }
+
     footer {
-      margin-top: 40px;
+      margin-top: 3rem;
+      text-align: center;
       font-size: 0.9rem;
-      color: #555;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <h1>TẤN THÀNH</h1>
-  <div class="loader"></div>
+  <header>TẤN THÀNH</header>
 
-  <div class="dog">
-    <img src="https://media.giphy.com/media/QvBoMEcQ7DQXK/giphy.gif" width="100%" />
+  <div class="spinner"></div>
+
+  <img src="https://media.giphy.com/media/l1J9EdzfOSgfyueLm/giphy.gif" alt="Cún chạy" class="dog" />
+
+  <div class="container">
+    <h2>🎁 Link Spin Coin Master Mới Nhất</h2>
+    <div id="linkList">Đang cập nhật link mới...</div>
+    <div class="countdown" id="countdown">Thời gian còn lại để nhận spin mới: --:--:--</div>
+
+    <div class="share-buttons">
+      <button class="btn" onclick="copyLink()">📋 Copy Link</button>
+      <button class="btn" onclick="share()">📤 Chia sẻ</button>
+      <button class="btn" onclick="window.open('https://apps.apple.com/app/id406889139', '_blank')">⬇️ Tải App</button>
+    </div>
   </div>
 
-  <div class="spin-list" id="spinList">
-    <p>Đang cập nhật link spin miễn phí...</p>
-  </div>
-
-  <button onclick="window.location.reload()">🔄 Làm mới link</button>
-  <button onclick="navigator.share({title:'Spin miễn phí', url: window.location.href})">📤 Chia sẻ</button>
-
-  <footer>
-    © 2025 by TanThanh. All rights reserved.
-  </footer>
+  <footer>© Bản quyền thuộc về Tấn Thành</footer>
 
   <script>
-    const spinListEl = document.getElementById("spinList");
-    async function fetchSpinLinks() {
-      try {
-        const response = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent("https://www.thegioididong.com/game-app/3-cach-nhan-hang-tram-luot-spin-mien-phi-trong-coin-m-1257965"));
-        const data = await response.json();
-        const html = data.contents;
-        const regex = /(https:\/\/[^"']+coinmaster[^"']+)/g;
-        const matches = [...new Set(html.match(regex))];
+    const linkList = document.getElementById("linkList");
 
-        if (matches && matches.length > 0) {
-          spinListEl.innerHTML = "";
-          matches.forEach(link => {
-            const div = document.createElement("div");
-            div.className = "spin-item";
-            div.innerHTML = `<a href="${link}" target="_blank">👉 Nhận Spin tại đây</a>`;
-            spinListEl.appendChild(div);
-          });
-        } else {
-          spinListEl.innerHTML = "❌ Không tìm thấy link spin nào.";
-        }
-      } catch (error) {
-        spinListEl.innerHTML = "❌ Không thể lấy dữ liệu từ Thế Giới Di Động.";
-        console.error("Lỗi:", error);
+    async function fetchLinks() {
+      try {
+        const urls = [
+          "https://www.facebook.com/coinmasterofficial/posts",
+          "https://x.com/coinmastergame",
+          "https://www.instagram.com/coinmasterofficial/"
+        ];
+
+        let html = "";
+
+        urls.forEach((url, index) => {
+          html += `
+            <div class="link-box">
+              <span>🎯 Link ${index + 1}</span>
+              <button class="btn" onclick="window.open('${url}', '_blank')">Đi tới</button>
+            </div>`;
+        });
+
+        linkList.innerHTML = html;
+      } catch (e) {
+        linkList.innerHTML = "<p style='color: red;'>❌ Không thể lấy dữ liệu từ các nguồn.</p>";
       }
     }
 
-    fetchSpinLinks();
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href);
+      alert("Đã copy link website!");
+    }
+
+    function share() {
+      if (navigator.share) {
+        navigator.share({
+          title: "Tấn Thành - Link Spin Coin Master",
+          url: window.location.href
+        });
+      } else {
+        copyLink();
+      }
+    }
+
+    function countdownTimer() {
+      const now = new Date().getTime();
+      const midnight = new Date();
+      midnight.setHours(24,0,0,0);
+      const distance = midnight - now;
+
+      const hours = Math.floor((distance / (1000 * 60 * 60)));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").textContent =
+        `Thời gian còn lại để nhận spin mới: ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(countdownTimer, 1000);
+    fetchLinks();
   </script>
 </body>
 </html>
